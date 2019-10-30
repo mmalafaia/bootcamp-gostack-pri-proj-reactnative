@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
 
+// Criar Loaging
+// Carregar mais itens no evento onEndReached na FlatList
+// Quando clicar no repositório, abrir um webview do githuv
+
 import {
   Container,
   Header,
@@ -55,7 +59,7 @@ export default class User extends Component {
         </Header>
 
         <Stars
-          data={data}
+          data={stars}
           keyExtractor={star => String(star.id)}
           renderItem={({ item }) => (
             <Starred>
