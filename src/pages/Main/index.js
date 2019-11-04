@@ -20,10 +20,6 @@ import {
 } from './styles';
 
 export default class Main extends Component {
-  static navigationOptions = {
-    title: 'Usuários',
-  };
-
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -55,30 +51,36 @@ export default class Main extends Component {
   handleAddUser = async () => {
     const { users, newUser } = this.state;
 
-    this.setState({ loading: true });
+    if (newUser) {
+      this.setState({ loading: true });
 
-    const response = await api.get(`/users/${newUser}`);
+      const response = await api.get(`/users/${newUser}`);
 
-    const data = {
-      name: response.data.name,
-      login: response.data.login,
-      bio: response.data.bio,
-      avatar: response.data.avatar_url,
-    };
+      const data = {
+        name: response.data.name,
+        login: response.data.login,
+        bio: response.data.bio,
+        avatar: response.data.avatar_url,
+      };
 
-    this.setState({
-      users: [...users, data],
-      newUser: '',
-      loading: false,
-    });
+      this.setState({
+        users: [...users, data],
+        newUser: '',
+        loading: false,
+      });
 
-    Keyboard.dismiss();
+      Keyboard.dismiss();
+    }
   };
 
   handleNavigate = user => {
     const { navigation } = this.props;
 
     navigation.navigate('User', { user });
+  };
+
+  static navigationOptions = {
+    title: 'Usuários',
   };
 
   render() {
